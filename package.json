@@ -22,12 +22,17 @@
         "@babel/node": "latest",
         "@babel/preset-env": "latest",
         "@babel/preset-stage-2": "latest",
+        "@babel/register": "latest",
         "eslint": "latest"
     },
     "dependencies": {
         "cookie": "^0.3.1",
         "express": "^4.16.4",
         "lodash": "^4.17.11",
+        "pg": "^7.9.0",
+        "pg-hstore": "^2.3.2",
+        "sequelize": "^5.1.0",
+        "sequelize-cli": "^5.4.0",
         "stream-replace": "^1.0.0"
     }
 }
