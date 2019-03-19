@@ -5,8 +5,9 @@ const router = express.Router();
 const repository = new UserRepository();
 
 router.get('/users', (req, res) => {
-    res.status(200)
-        .json(repository.fetchAll());
+    repository.fetchAll()
+        .then((users) =>
+            res.status(200).json(users));
 });
 
 export default router;

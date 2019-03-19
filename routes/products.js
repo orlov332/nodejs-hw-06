@@ -7,24 +7,27 @@ const repository = new ProductRepository();
 router.param('id', (req, res, next, idStr) => {
     console.debug(`Finding product with id ${idStr}...`);
     req.productId = idStr;
-    req.product = repository.findById(parseInt(idStr));
-    if (req.product === undefined) {
-        req.status(404)
-            .json({message: `Product with id ${idStr} not found`});
-        console.error(`Product with id ${idStr} not found`);
-    }
-    console.debug(req.product);
-    next();
+    repository.findById(parseInt(idStr))
+        .then((prod) => {
+            req.product = prod;
+            if (req.product === undefined) {
+                req.status(404)
+                    .json({message: `Product with id ${idStr} not found`});
+                console.error(`Product with id ${idStr} not found`);
+            }
+            console.debug(req.product);
+            next();
+        });
 });
 
 router.get('/products', (req, res) => {
-    res.status(200)
-        .json(repository.fetchAll());
+    repository.fetchAll()
+        .then((prods) => res.status(200).json(prods));
 });
 
 router.post('/products', (req, res) => {
-    res.status(200)
-        .json(repository.save(req.body));
+    repository.save(req.body)
+        .then((prod) => res.status(200).json(prod));
 });
 
 router.get('/products/:id', (req, res) => {
